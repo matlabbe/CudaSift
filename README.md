@@ -11,7 +11,7 @@ Installation:
 ```bash
 git clone https://github.com/matlabbe/CudaSift.git
 cd CudaSift
-mkidr build
+mkdir build
 cd build
 cmake ..
 make
