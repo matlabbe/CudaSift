@@ -10,8 +10,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#include "cudaImage.h"
-#include "cudaSift.h"
+#include "cudasift/cudaImage.h"
+#include "cudasift/cudaSift.h"
 
 int ImproveHomography(SiftData &data, float *homography, int numLoops, float minScore, float maxAmbiguity, float thresh);
 void PrintMatchData(SiftData &siftData1, SiftData &siftData2, CudaImage &img);
@@ -24,21 +24,18 @@ double ScaleUp(CudaImage &res, CudaImage &src);
 ///////////////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv) 
 {    
-  int devNum = 0, imgSet = 0;
-  if (argc>1)
-    devNum = std::atoi(argv[1]);
-  if (argc>2)
-    imgSet = std::atoi(argv[2]);
+  int devNum = 0;
+  if(argc < 3)
+  {
+    printf("\nUsage: %s PATH_IMG1 PATH_IMG2\n\n", argv[0]);
+    return 1;
+  }
 
   // Read images using OpenCV
   cv::Mat limg, rimg;
-  if (imgSet) {
-    cv::imread("data/left.pgm", 0).convertTo(limg, CV_32FC1);
-    cv::imread("data/righ.pgm", 0).convertTo(rimg, CV_32FC1);
-  } else {
-    cv::imread("data/img1.png", 0).convertTo(limg, CV_32FC1);
-    cv::imread("data/img2.png", 0).convertTo(rimg, CV_32FC1);
-  }
+  cv::imread(argv[1], 0).convertTo(limg, CV_32FC1);
+   cv::imread(argv[2], 0).convertTo(rimg, CV_32FC1);
+  
   //cv::flip(limg, rimg, -1);
   unsigned int w = limg.cols;
   unsigned int h = limg.rows;
@@ -56,7 +53,7 @@ int main(int argc, char **argv)
   // Extract Sift features from images
   SiftData siftData1, siftData2;
   float initBlur = 1.0f;
-  float thresh = (imgSet ? 4.5f : 3.0f);
+  float thresh = 4.5f;
   InitSiftData(siftData1, 32768, true, true); 
   InitSiftData(siftData2, 32768, true, true);
   
@@ -83,7 +80,7 @@ int main(int argc, char **argv)
   
   // Print out and store summary data
   PrintMatchData(siftData1, siftData2, img1);
-  cv::imwrite("data/limg_pts.pgm", limg);
+  cv::imwrite("matches.pgm", limg);
 
   //MatchAll(siftData1, siftData2, homography);
   

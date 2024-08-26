@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <opencv2/core/core.hpp>
-#include "cudaSift.h"
+#include "cudasift/cudaSift.h"
 
 int ImproveHomography(SiftData &data, float *homography, int numLoops, float minScore, float maxAmbiguity, float thresh)
 {

@@ -5,7 +5,9 @@
 #ifndef CUDAIMAGE_H
 #define CUDAIMAGE_H
 
-class CudaImage {
+#include "cudasift/cudasift_export.h"
+
+class CUDASIFT_EXPORT CudaImage {
 public:
   int width, height;
   int pitch;
@@ -24,11 +26,11 @@ public:
   double CopyToTexture(CudaImage &dst, bool host);
 };
 
-int iDivUp(int a, int b);
-int iDivDown(int a, int b);
-int iAlignUp(int a, int b);
-int iAlignDown(int a, int b);
-void StartTimer(unsigned int *hTimer);
-double StopTimer(unsigned int hTimer);
+CUDASIFT_EXPORT int iDivUp(int a, int b);
+CUDASIFT_EXPORT int iDivDown(int a, int b);
+CUDASIFT_EXPORT int iAlignUp(int a, int b);
+CUDASIFT_EXPORT int iAlignDown(int a, int b);
+CUDASIFT_EXPORT void StartTimer(unsigned int *hTimer);
+CUDASIFT_EXPORT double StopTimer(unsigned int hTimer);
 
 #endif // CUDAIMAGE_H

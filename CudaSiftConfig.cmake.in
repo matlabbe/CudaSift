@@ -1,0 +1,6 @@
+include(CMakeFindDependencyMacro)
+
+# Public dependencies
+find_dependency(CUDA)
+
+include("${CMAKE_CURRENT_LIST_DIR}/CudaSiftTargets.cmake")

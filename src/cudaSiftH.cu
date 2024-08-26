@@ -7,14 +7,14 @@
 #include <cmath>
 #include <iostream>
 #include <algorithm>
-#include "cudautils.h"
+#include "cudasift/cudautils.h"
 
-#include "cudaImage.h"
-#include "cudaSift.h"
-#include "cudaSiftD.h"
-#include "cudaSiftH.h"
+#include "cudasift/cudaImage.h"
+#include "cudasift/cudaSift.h"
+#include "cudasift/cudaSiftD.h"
+#include "cudasift/cudaSiftH.h"
 
-#include "cudaSiftD.cu"
+#include "cudasift/cudaSiftD.cu"
 
 void InitCuda(int devNum)
 {

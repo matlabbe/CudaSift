@@ -1,3 +1,25 @@
+# Fork info
+I added cmake config (`CudaSiftConfig.cmake`) and targets so that we can use CudaSift as an external library like this:
+```cmake
+find_package(CudaSift REQUIRED)
+
+# Link your executable or library to target "cudasift"
+target_link_libraries(my_lib cudasift)
+```
+
+Installation:
+```bash
+git clone https://github.com/matlabbe/CudaSift.git
+cd CudaSift
+mkidr build
+cd build
+cmake ..
+make
+sudo make install
+```
+
+Note: Currently tested only on Linux.
+
 # CudaSift - SIFT features with CUDA
 
 This is the fourth version of a SIFT (Scale Invariant Feature Transform) implementation using CUDA for GPUs from NVidia. The first version is from 2007 and GPUs have evolved since then. This version is slightly more precise and considerably faster than the previous versions and has been optimized for Kepler and later generations of GPUs.
