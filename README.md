@@ -20,8 +20,8 @@ sudo make install
 Running example from build directory:
 ```
 cd CudaSift/build
-./cudasift_example ../data/left.pgm ../data/righ.pgm
-
+./cudasift_example ../data/left.pgm ../data/right.pgm
+xdg-open matches.pgm
 ```
 
 Note: Currently tested only on Linux.

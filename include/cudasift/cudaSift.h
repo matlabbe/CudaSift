@@ -18,7 +18,7 @@ typedef struct {
   float match_ypos;
   float match_error;
   float subsampling;
-  float empty[3];
+  float empty[2];
   float data[128];
 } SiftPoint;
 
