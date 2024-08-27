@@ -13,9 +13,15 @@ git clone https://github.com/matlabbe/CudaSift.git
 cd CudaSift
 mkdir build
 cd build
-cmake ..
+cmake ..    // Add -DVERBOSE=OFF to avoid internal logs when including in your app
 make
 sudo make install
+```
+Running example from build directory:
+```
+cd CudaSift/build
+./cudasift_example ../data/left.pgm ../data/righ.pgm
+
 ```
 
 Note: Currently tested only on Linux.
