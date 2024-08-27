@@ -54,29 +54,31 @@ int main(int argc, char **argv)
   SiftData siftData1, siftData2;
   float initBlur = 1.0f;
   float thresh = 4.5f;
+  float edgeLimit = 10.0f;
   InitSiftData(siftData1, 32768, true, true); 
   InitSiftData(siftData2, 32768, true, true);
   
   // A bit of benchmarking 
   //for (int thresh1=1.00f;thresh1<=4.01f;thresh1+=0.50f) {
   float *memoryTmp = AllocSiftTempMemory(w, h, 5, false);
-    for (int i=0;i<1000;i++) {
-      ExtractSift(siftData1, img1, 5, initBlur, thresh, 0.0f, false, memoryTmp);
-      ExtractSift(siftData2, img2, 5, initBlur, thresh, 0.0f, false, memoryTmp);
-    }
-    FreeSiftTempMemory(memoryTmp);
-    
-    // Match Sift features and find a homography
-    for (int i=0;i<1;i++)
-      MatchSiftData(siftData1, siftData2);
-    float homography[9];
-    int numMatches;
-    FindHomography(siftData1, homography, &numMatches, 10000, 0.00f, 0.80f, 5.0);
-    int numFit = ImproveHomography(siftData1, homography, 5, 0.00f, 0.80f, 3.0);
-    
-    std::cout << "Number of original features: " <<  siftData1.numPts << " " << siftData2.numPts << std::endl;
-    std::cout << "Number of matching features: " << numFit << " " << numMatches << " " << 100.0f*numFit/std::min(siftData1.numPts, siftData2.numPts) << "% " << initBlur << " " << thresh << std::endl;
-    //}
+
+  for (int i=0;i<1000;i++) {
+    ExtractSift(siftData1, img1, 5, initBlur, thresh, edgeLimit, 0.0f, false, memoryTmp);
+    ExtractSift(siftData2, img2, 5, initBlur, thresh, edgeLimit, 0.0f, false, memoryTmp);
+  }
+  FreeSiftTempMemory(memoryTmp);
+  
+  // Match Sift features and find a homography
+  for (int i=0;i<1;i++)
+    MatchSiftData(siftData1, siftData2);
+  float homography[9];
+  int numMatches;
+  FindHomography(siftData1, homography, &numMatches, 10000, 0.00f, 0.80f, 5.0);
+  int numFit = ImproveHomography(siftData1, homography, 5, 0.00f, 0.80f, 3.0);
+  
+  std::cout << "Number of original features: " <<  siftData1.numPts << " " << siftData2.numPts << std::endl;
+  std::cout << "Number of matching features: " << numFit << " " << numMatches << " " << 100.0f*numFit/std::min(siftData1.numPts, siftData2.numPts) << "% " << initBlur << " " << thresh << std::endl;
+  //}
   
   // Print out and store summary data
   PrintMatchData(siftData1, siftData2, img1);

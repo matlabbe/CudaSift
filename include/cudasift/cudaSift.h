@@ -10,6 +10,7 @@ typedef struct {
   float sharpness;
   float edgeness;
   float orientation;
+  float gaussian_diff;
   float score;
   float ambiguity;
   int match;
@@ -36,7 +37,7 @@ public:
 CUDASIFT_EXPORT void InitCuda(int devNum = 0);
 CUDASIFT_EXPORT float * AllocSiftTempMemory(int width, int height, int numOctaves, bool scaleUp = false);
 CUDASIFT_EXPORT void FreeSiftTempMemory(float *memoryTmp);
-CUDASIFT_EXPORT void ExtractSift(SiftData &siftData, CudaImage &img, int numOctaves, double initBlur, float thresh, float lowestScale = 0.0f, bool scaleUp = false, float *tempMemory = 0);
+CUDASIFT_EXPORT void ExtractSift(SiftData &siftData, CudaImage &img, int numOctaves, double initBlur, float thresh, float edgeLimit = 10.0f, float lowestScale = 0.0f, bool scaleUp = false, float *tempMemory = 0);
 CUDASIFT_EXPORT void InitSiftData(SiftData &data, int num = 1024, bool host = false, bool dev = true);
 CUDASIFT_EXPORT void FreeSiftData(SiftData &data);
 CUDASIFT_EXPORT void PrintSiftData(SiftData &data);

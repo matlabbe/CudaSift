@@ -8,8 +8,8 @@
 // CUDA SIFT extractor by Marten Bjorkman aka Celebrandil //
 //********************************************************//  
 
-CUDASIFT_EXPORT int ExtractSiftLoop(SiftData &siftData, CudaImage &img, int numOctaves, double initBlur, float thresh, float lowestScale, float subsampling, float *memoryTmp, float *memorySub);
-CUDASIFT_EXPORT void ExtractSiftOctave(SiftData &siftData, CudaImage &img, int octave, float thresh, float lowestScale, float subsampling, float *memoryTmp);
+CUDASIFT_EXPORT int ExtractSiftLoop(SiftData &siftData, CudaImage &img, int numOctaves, double initBlur, float thresh, float edgeLimit, float lowestScale, float subsampling, float *memoryTmp, float *memorySub);
+CUDASIFT_EXPORT void ExtractSiftOctave(SiftData &siftData, CudaImage &img, int octave, float thresh, float edgeLimit, float lowestScale, float subsampling, float *memoryTmp);
 CUDASIFT_EXPORT double ScaleDown(CudaImage &res, CudaImage &src, float variance);
 CUDASIFT_EXPORT double ScaleUp(CudaImage &res, CudaImage &src);
 CUDASIFT_EXPORT double ComputeOrientations(cudaTextureObject_t texObj, CudaImage &src, SiftData &siftData, int octave);

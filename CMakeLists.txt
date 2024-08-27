@@ -14,6 +14,10 @@ find_package(OpenCV REQUIRED)
 find_package(CUDA REQUIRED)
 
 OPTION( BUILD_SHARED_LIBS "Set to OFF to build static libraries" ON )
+OPTION( VERBOSE "Print internal processing time" ON )
+if(VERBOSE)
+  add_definitions(-DVERBOSE)
+endif()
 
 if (WIN32)
   set(EXTRA_CXX_FLAGS "/DVERBOSE /D_CRT_SECURE_NO_WARNINGS ")
@@ -34,6 +38,10 @@ IF(${CMAKE_GENERATOR} MATCHES ".*Makefiles")
         set(CMAKE_BUILD_TYPE Release)
     ENDIF("${CMAKE_BUILD_TYPE}" STREQUAL "")
 ENDIF(${CMAKE_GENERATOR} MATCHES ".*Makefiles")
+
+message(STATUS "BUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}")
+message(STATUS "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
+message(STATUS "VERBOSE=${VERBOSE}")
 
 set(INSTALL_INCLUDE_DIR include/cudasift-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
 if(WIN32 AND NOT CYGWIN)
