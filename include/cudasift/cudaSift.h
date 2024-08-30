@@ -10,7 +10,6 @@ typedef struct {
   float sharpness;
   float edgeness;
   float orientation;
-  float gaussian_diff;
   float score;
   float ambiguity;
   int match;
@@ -18,7 +17,7 @@ typedef struct {
   float match_ypos;
   float match_error;
   float subsampling;
-  float empty[2];
+  float empty[3];
   float data[128];
 } SiftPoint;
 

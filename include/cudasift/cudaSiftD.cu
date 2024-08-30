@@ -836,7 +836,6 @@ __global__ void ComputeOrientations(cudaTextureObject_t texObj, SiftPoint *d_Sif
 	d_Sift[idx].edgeness = d_Sift[bx].edgeness;
 	d_Sift[idx].orientation = 11.25f*(peak<0.0f ? peak+32.0f : peak);;
 	d_Sift[idx].subsampling = d_Sift[bx].subsampling;
-  d_Sift[idx].gaussian_diff = d_Sift[bx].gaussian_diff;
       }
     } 
   }
@@ -960,7 +959,6 @@ __global__ void ComputeOrientationsCONSTNew(float *image, int w, int p, int h, S
 	  d_Sift[idx].edgeness = d_Sift[bx].edgeness;
 	  d_Sift[idx].orientation = 360.0f*(peak<0.0f ? peak + LEN : peak)/LEN;
 	  d_Sift[idx].subsampling = d_Sift[bx].subsampling;
-    d_Sift[idx].gaussian_diff = d_Sift[bx].gaussian_diff;
 	}
       }
     }
@@ -1051,7 +1049,6 @@ __global__ void ComputeOrientationsCONST(cudaTextureObject_t texObj, SiftPoint *
 	  d_Sift[idx].edgeness = d_Sift[bx].edgeness;
 	  d_Sift[idx].orientation = 11.25f*(peak<0.0f ? peak+32.0f : peak);;
 	  d_Sift[idx].subsampling = d_Sift[bx].subsampling;
-    d_Sift[idx].gaussian_diff = d_Sift[bx].gaussian_diff;
 	}
       }
     }
@@ -1142,7 +1139,6 @@ __global__ void OrientAndExtractCONST(cudaTextureObject_t texObj, SiftPoint *d_S
 	  d_Sift[idx].edgeness = d_Sift[bx].edgeness;
 	  d_Sift[idx].orientation = 11.25f*(peak<0.0f ? peak+32.0f : peak);;
 	  d_Sift[idx].subsampling = d_Sift[bx].subsampling;
-    d_Sift[idx].gaussian_diff = d_Sift[bx].gaussian_diff;
 	}
       }
     }
@@ -1288,7 +1284,6 @@ __global__ void FindPointsMultiTest(float *d_Data0, SiftPoint *d_Sift, int width
 	d_Sift[idx].sharpness = val + dval;
 	d_Sift[idx].edgeness = edge;
 	d_Sift[idx].subsampling = subsampling;
-  d_Sift[idx].gaussian_diff = maxv;
       }
     }
   }
@@ -1430,7 +1425,6 @@ __global__ void FindPointsMultiNew(float *d_Data0, SiftPoint *d_Sift, int width,
 	d_Sift[idx].sharpness = val + dval;
 	d_Sift[idx].edgeness = edge;
 	d_Sift[idx].subsampling = subsampling;
-  d_Sift[idx].gaussian_diff = maxv;
       }
     }
   }
@@ -1573,7 +1567,6 @@ __global__ void FindPointsMulti(float *d_Data0, SiftPoint *d_Sift, int width, in
 	d_Sift[idx].sharpness = val + dval;
 	d_Sift[idx].edgeness = edge;
 	d_Sift[idx].subsampling = subsampling;
-  d_Sift[idx].gaussian_diff = maxv;
       }
     }
   }
@@ -1719,7 +1712,6 @@ __global__ void FindPointsMultiOld(float *d_Data0, SiftPoint *d_Sift, int width,
 	d_Sift[idx].sharpness = val + dval;
 	d_Sift[idx].edgeness = edge;
 	d_Sift[idx].subsampling = subsampling;
-  d_Sift[idx].gaussian_diff = maxv;
       }
     }
   }
