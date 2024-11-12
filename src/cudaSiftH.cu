@@ -16,24 +16,29 @@
 
 #include "cudasift/cudaSiftD.cu"
 
-void InitCuda(int devNum)
+bool InitCuda(int devNum, bool printDeviceDetails)
 {
   int nDevices;
   cudaGetDeviceCount(&nDevices);
   if (!nDevices) {
     std::cerr << "No CUDA devices available" << std::endl;
-    return;
+    return false;
   }
   devNum = std::min(nDevices-1, devNum);
-  deviceInit(devNum);  
-  cudaDeviceProp prop;
-  cudaGetDeviceProperties(&prop, devNum);
-  printf("Device Number: %d\n", devNum);
-  printf("  Device name: %s\n", prop.name);
-  printf("  Memory Clock Rate (MHz): %d\n", prop.memoryClockRate/1000);
-  printf("  Memory Bus Width (bits): %d\n", prop.memoryBusWidth);
-  printf("  Peak Memory Bandwidth (GB/s): %.1f\n\n",
-	 2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6);
+  if(!deviceInit(devNum))
+    return false;
+  
+  if(printDeviceDetails) {
+    cudaDeviceProp prop;
+    cudaGetDeviceProperties(&prop, devNum);
+    printf("Device Number: %d\n", devNum);
+    printf("  Device name: %s\n", prop.name);
+    printf("  Memory Clock Rate (MHz): %d\n", prop.memoryClockRate/1000);
+    printf("  Memory Bus Width (bits): %d\n", prop.memoryBusWidth);
+    printf("  Peak Memory Bandwidth (GB/s): %.1f\n\n",
+    2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6);
+  }
+   return true;
 }
 
 float *AllocSiftTempMemory(int width, int height, int numOctaves, bool scaleUp)

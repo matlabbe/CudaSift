@@ -33,7 +33,7 @@ public:
 #endif
 };
 
-CUDASIFT_EXPORT void InitCuda(int devNum = 0);
+CUDASIFT_EXPORT bool InitCuda(int devNum = 0, bool printDeviceDetails = true);
 CUDASIFT_EXPORT float * AllocSiftTempMemory(int width, int height, int numOctaves, bool scaleUp = false);
 CUDASIFT_EXPORT void FreeSiftTempMemory(float *memoryTmp);
 CUDASIFT_EXPORT void ExtractSift(SiftData &siftData, CudaImage &img, int numOctaves, double initBlur, float thresh, float edgeLimit = 10.0f, float lowestScale = 0.0f, bool scaleUp = false, float *tempMemory = 0);
