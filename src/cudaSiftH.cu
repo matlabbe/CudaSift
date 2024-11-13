@@ -18,9 +18,14 @@
 
 bool InitCuda(int devNum, bool printDeviceDetails)
 {
-  int nDevices;
-  cudaGetDeviceCount(&nDevices);
-  if (!nDevices) {
+  int nDevices = 0;
+  cudaError err = cudaGetDeviceCount(&nDevices);
+  if(err != cudaSuccess)
+  {
+    std::cerr << cudaGetErrorString(err) << std::endl;
+    return false;
+  }
+  else if (!nDevices) {
     std::cerr << "No CUDA devices available" << std::endl;
     return false;
   }
@@ -30,7 +35,7 @@ bool InitCuda(int devNum, bool printDeviceDetails)
   
   if(printDeviceDetails) {
     cudaDeviceProp prop;
-    cudaGetDeviceProperties(&prop, devNum);
+    safeCall(cudaGetDeviceProperties(&prop, devNum));
     printf("Device Number: %d\n", devNum);
     printf("  Device name: %s\n", prop.name);
     printf("  Memory Clock Rate (MHz): %d\n", prop.memoryClockRate/1000);

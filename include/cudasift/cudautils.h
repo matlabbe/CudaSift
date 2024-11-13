@@ -41,7 +41,12 @@ inline void __checkMsg(const char *errorMessage, const char *file, const int lin
 inline bool deviceInit(int dev)
 {
   int deviceCount;
-  safeCall(cudaGetDeviceCount(&deviceCount));
+  cudaError err = cudaGetDeviceCount(&deviceCount);
+  if(err != cudaSuccess)
+  {
+    fprintf(stderr, "CUDA error: %s.\n", cudaGetErrorString(err));
+    return false;
+  }
   if (deviceCount == 0) {
     fprintf(stderr, "CUDA error: no devices supporting CUDA.\n");
     return false;
