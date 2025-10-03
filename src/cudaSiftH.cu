@@ -65,7 +65,9 @@ float *AllocSiftTempMemory(int width, int height, int numOctaves, bool scaleUp)
   float *memoryTmp = NULL; 
   size_t pitch;
   size += sizeTmp;
-  safeCall(cudaMallocPitch((void **)&memoryTmp, &pitch, (size_t)4096, (size+4095)/4096*sizeof(float)));
+  // Bump original (size+4095) with (size+4096+128) -> (size+4224), to fix some illegal memory
+  // access with non-standard resolution (e.g., 1920x288 or 1920x273)
+  safeCall(cudaMallocPitch((void **)&memoryTmp, &pitch, (size_t)4096, (size+4224)/4096*sizeof(float)));
 #ifdef VERBOSE
   printf("Allocated memory size: %d bytes\n", size);
   printf("Memory allocation time =      %.2f ms\n\n", timer.read());
