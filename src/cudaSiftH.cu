@@ -38,10 +38,12 @@ bool InitCuda(int devNum, bool printDeviceDetails)
     safeCall(cudaGetDeviceProperties(&prop, devNum));
     printf("Device Number: %d\n", devNum);
     printf("  Device name: %s\n", prop.name);
-    printf("  Memory Clock Rate (MHz): %d\n", prop.memoryClockRate/1000);
+    int memoryClockRate = 0; // cudaDeviceProp::memoryClockRate was removed in CUDA 13
+    cudaDeviceGetAttribute(&memoryClockRate, cudaDevAttrMemoryClockRate, devNum);
+    printf("  Memory Clock Rate (MHz): %d\n", memoryClockRate/1000);
     printf("  Memory Bus Width (bits): %d\n", prop.memoryBusWidth);
     printf("  Peak Memory Bandwidth (GB/s): %.1f\n\n",
-    2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6);
+    2.0*memoryClockRate*(prop.memoryBusWidth/8)/1.0e6);
   }
    return true;
 }
